@@ -27,7 +27,17 @@ computePosition(content, noteBelow, {
   placement: "bottom-start",
 }).then(({ x, y }) => {
   // Adjust the top position manually if necessary
-  const adjustedY = y - 20; // Adjust based on your need
+  let adjustedY = y 
+
+  if (window.innerWidth >= 701) { 
+    adjustedY  -= 20
+  }
+   if (window.innerWidth <= 700) {
+     adjustedY += 1;
+   }
+   if (window.innerWidth < 600) {
+      adjustedY += 10;
+   }
 
   Object.assign(noteBelow.style, {
     //   position: "absolute",

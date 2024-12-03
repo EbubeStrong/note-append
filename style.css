@@ -141,20 +141,22 @@ section:nth-child(2) {
     max-width: 100%;
   }
 
-  .note-below{
+  /* .note-below{
     top: 250px;
-  }
+  } */
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   /* .container {
     max-width: 400px;
   } */
   .text-content .text p {
   font-size: 20px;
   line-height: 1.6;
+  /* white-space: nowrap; */
 }
 /* .note-below{
-    top: -550px;
+  position: absolute;
+    top: 350px;
   } */
 }
