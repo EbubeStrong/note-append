@@ -7,63 +7,56 @@ const noteRight = document.querySelector(".note-right");
 const container = document.querySelector(".container");
 
 
-// Position noteAbove above the content
 computePosition(content, noteAbove, {
-  placement: "top-start", // Position above the content
+  placement: "top-start", 
 }).then(({ x, y }) => {
-  // Adjust the top position manually if necessary
     const adjustedY = y + 2;
-    // Adjust based on your need
 
   Object.assign(noteAbove.style, {
-    // position: "absolute", 
     left: `${x}px`,
     top: `${adjustedY}px`,
   });
 });
 
-// Position noteBelow below the content
-computePosition(content, noteBelow, {
-  placement: "bottom-start",
-}).then(({ x, y }) => {
-  // Adjust the top position manually if necessary
-  let adjustedY = y 
 
-  if (window.innerWidth >= 701) { 
-    adjustedY  -= 20
-  }
-   if (window.innerWidth <= 700) {
-     adjustedY += 1;
-   }
-   if (window.innerWidth < 600) {
-      adjustedY += 10;
-   }
 
-  Object.assign(noteBelow.style, {
-    //   position: "absolute",
-      // Ensure it's positioned correctly
-    left: `${x}px`,
-    top: `${adjustedY}px`,
+function updateNoteBelowPosition() {
+  computePosition(content, noteBelow, {
+    placement: "bottom-start",
+  }).then(({ x, y }) => {
+    const contentHeight = content.offsetHeight; 
+    let adjustedY = y
+     adjustedY =  contentHeight; 
+    adjustedY -= 2; 
+
+    Object.assign(noteBelow.style, {
+      left: `${x}px`,
+      top: `${adjustedY}px`,
+    });
   });
-});
+}
 
-computePosition(container, noteRight, {
+// Call the function initially and on window resize
+updateNoteBelowPosition();
+window.addEventListener("resize", updateNoteBelowPosition);
+
+
+function updateNoteRightPostion(){
+  computePosition(container, noteRight, {
     placement: "right-start",
-}).then(({ x, y }) => { 
-    const adjustedX = x - 1080;
+  }).then(({ x, y }) => {
+    // const adjustedX = x - 1075;
+    const contentWidth = content.offsetWidth;
+    let adjustedX = x;
+    adjustedX = contentWidth;
+    adjustedX -= 5;
+
     const adjustedY = y + 1;
     Object.assign(noteRight.style, {
-        right: `${adjustedX}px`,
-        top: `${adjustedY}px`,
+      left: `${adjustedX}px`,
+      top: `${adjustedY}px`,
     });
-})
-// computePosition(container, noteRight, {
-//     placement: "right-start",
-// }).then(({ x, y }) => { 
-//     // const adjustedX = x - 1;
-//     const adjustedY = y - 20;
-//     Object.assign(noteRight.style, {
-//         left: `${x}px`,
-//         top: `${adjustedY}px`,
-//     });
-// })
+  });
+}
+updateNoteRightPostion()
+window.addEventListener("resize", updateNoteRightPostion)
